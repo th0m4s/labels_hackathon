@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.sothree.slidinguppanel.SlidingUpPanelLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:sothree="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    sothree:umanoOverlay="true"
+    android:gravity="bottom"
+    android:id="@+id/scanLayoutPanel"
+    sothree:umanoPanelHeight="68dp"
+    tools:context=".ScanActivity">
+
+    <SurfaceView
+        android:id="@+id/scanCameraView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/resultFragment"
+        android:name="dev.th0m4s.labelshackathon.ResultFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</com.sothree.slidinguppanel.SlidingUpPanelLayout>
