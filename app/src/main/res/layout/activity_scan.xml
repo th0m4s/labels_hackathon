@@ -8,7 +8,7 @@
     sothree:umanoOverlay="true"
     android:gravity="bottom"
     android:id="@+id/scanLayoutPanel"
-    sothree:umanoPanelHeight="68dp"
+    sothree:umanoPanelHeight="116dp"
     tools:context=".ScanActivity">
 
     <SurfaceView

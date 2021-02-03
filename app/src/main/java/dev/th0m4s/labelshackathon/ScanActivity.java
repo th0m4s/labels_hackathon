@@ -5,14 +5,17 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentContainerView;
 
 import android.Manifest;
-import android.content.Intent;
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.util.Log;
 import android.util.SparseArray;
+import android.view.HapticFeedbackConstants;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.View;
 
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
@@ -90,7 +93,7 @@ public class ScanActivity extends AppCompatActivity {
                     if(!code.equals(lastDetected)) {
                         lastDetected = code;
                         setPanelHeight(defaultHeight);
-                        resultFragment.showResult(code);
+                        resultFragment.loadResult(code, true);
                     }
                 }
             }
@@ -131,5 +134,15 @@ public class ScanActivity extends AppCompatActivity {
                 } else finish();
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(panelLayout.getPanelState() != SlidingUpPanelLayout.PanelState.COLLAPSED)
+            panelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+        else if(panelLayout.getPanelHeight() > 0) {
+            lastDetected = "";
+            panelLayout.setPanelHeight(0);
+        } else super.onBackPressed();
     }
 }

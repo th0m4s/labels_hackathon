@@ -3,18 +3,26 @@ package dev.th0m4s.labelshackathon;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.View;
 
 import android.view.Menu;
 import android.view.MenuItem;
 
+import dev.th0m4s.labelshackathon.adapters.HistoryAdapter;
+import dev.th0m4s.labelshackathon.db.ResultsDatabase;
+
 public class MainActivity extends AppCompatActivity {
+
+    public static RequestQueue netRequestQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        netRequestQueue = Volley.newRequestQueue(this);
+        ResultsDatabase.Prepare(this);
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -32,6 +43,11 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(scanIntent);
             }
         });
+
+        new Thread(() -> {
+            ResultsDatabase.UpdateCachedCount();
+            ((RecyclerView)findViewById(R.id.recycleViewHistory)).setAdapter(new HistoryAdapter(this, getResources()));
+        }).start();
     }
 
     @Override
