@@ -16,6 +16,7 @@ import android.util.SparseArray;
 import android.view.HapticFeedbackConstants;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
 
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
@@ -26,7 +27,6 @@ import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import java.io.IOException;
 
 public class ScanActivity extends AppCompatActivity {
-
     SurfaceView cameraView;
     CameraSource cameraSource;
 
@@ -48,6 +48,18 @@ public class ScanActivity extends AppCompatActivity {
         resultContainer = findViewById(R.id.resultFragment);
 
         panelLayout = findViewById(R.id.scanLayoutPanel);
+        panelLayout.addPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener() {
+            @Override
+            public void onPanelSlide(View panel, float slideOffset) {
+
+            }
+
+            @Override
+            public void onPanelStateChanged(View panel, SlidingUpPanelLayout.PanelState previousState, SlidingUpPanelLayout.PanelState newState) {
+                if(newState == SlidingUpPanelLayout.PanelState.EXPANDED) cameraSource.stop();
+                else if(previousState == SlidingUpPanelLayout.PanelState.EXPANDED && newState == SlidingUpPanelLayout.PanelState.DRAGGING) startCamera();
+            }
+        });
         defaultHeight = panelLayout.getPanelHeight();
         setPanelHeight(0);
 

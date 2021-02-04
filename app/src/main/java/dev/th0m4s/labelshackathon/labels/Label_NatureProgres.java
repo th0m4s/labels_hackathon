@@ -17,4 +17,14 @@ class Label_NatureProgres extends ProductLabel {
     public int getImage() {
         return R.drawable.nature_progres;
     }
+
+    @Override
+    public int getTrust() {
+        return 2;
+    }
+
+    @Override
+    public String getDesc() {
+        return "Mention française attestant de l'absence d'OGM, pesticides de synthèse et d'engrais chimiques.\nLes productions doivent aussi respecter les rythmes saisonniers.";
+    }
 }

@@ -17,4 +17,14 @@ class Label_BioPartenaire extends ProductLabel {
     public int getImage() {
         return R.drawable.bio_partenaire;
     }
+
+    @Override
+    public int getTrust() {
+        return -1;
+    }
+
+    @Override
+    public String getDesc() {
+        return null;
+    }
 }

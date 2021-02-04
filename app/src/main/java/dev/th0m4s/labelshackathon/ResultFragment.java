@@ -74,20 +74,20 @@ public class ResultFragment extends Fragment {
                         APIResult receivedResult = new APIResult()
                                 .setBrands(product.getString("brands"))
                                 .setCode(code)
-                                .setEcoscore(product.getJSONObject("ecoscore_data").getString("grade"))
-                                .setGenericName(product.getString("generic_name"))
+                                .setGenericName(JSONUtils.getStringOrDefault(product,"generic_name", ""))
                                 .setImageUrl(product.getString("image_url"))
                                 .setProductName(product.getString("product_name"))
                                 .setNutriments(product.getJSONObject("nutriments"))
                                 .setNutrientLevels(product.getJSONObject("nutrient_levels"))
-                                .setNutriscore(product.getString("nutriscore_grade"))
-                                .setNutriscoreDetails(product.getJSONObject("nutriscore_data"))
+                                .setEcoscore(JSONUtils.getStringOrDefault(product.getJSONObject("ecoscore_data"), "grade", "none"))
+                                .setNutriscore(JSONUtils.getStringOrDefault(product, "nutriscore_grade", "none"))
+                                .setNutriscoreDetails(JSONUtils.getJSONObjectOrDefault(product, "nutriscore_data", null))
                                 .setLabels(product.getString("labels"))
                                 .setLabelsHierarchy(product.getJSONArray("labels_hierarchy"));
 
                         new Thread(() -> {
                             ResultsDatabase.Instance.ResultDao().insertAll(receivedResult);
-                            ResultsDatabase.UpdateCachedCount();
+                            if(MainActivity.Instance != null) MainActivity.Instance.UpdateHistory();
                         }).start();
 
                         showResult(receivedResult);
@@ -198,6 +198,9 @@ public class ResultFragment extends Fragment {
             case "e":
                 id =  R.drawable.nutriscore_e;
                 break;
+            case "none":
+                id = R.drawable.nutriscore_unknown;
+                break;
         }
 
         return id == 0 ? null : resources.getDrawable(id);
@@ -221,6 +224,9 @@ public class ResultFragment extends Fragment {
             case "e":
                 id =  R.drawable.ecoscore_e;
                 break;
+            case "none":
+                id = R.drawable.ecoscore_unknown;
+                break;
         }
 
         return id == 0 ? null : resources.getDrawable(id);
@@ -234,6 +240,7 @@ public class ResultFragment extends Fragment {
 
     private void loadError(Exception e) {
         setLoading(false);
+        e.printStackTrace();
         setStatus("Une erreur est survenue !");
     }
 

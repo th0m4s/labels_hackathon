@@ -17,4 +17,14 @@ class Label_AOP extends ProductLabel {
     public int getImage() {
         return R.drawable.aop;
     }
+
+    @Override
+    public int getTrust() {
+        return 2;
+    }
+
+    @Override
+    public String getDesc() {
+        return "Version européenne du label AOC attestant la provenance du produit d'un territoire spécifique (et du savoir-faire utilisé).\n\nEn France, l'accréditation est délivrée par l'INAO.";
+    }
 }

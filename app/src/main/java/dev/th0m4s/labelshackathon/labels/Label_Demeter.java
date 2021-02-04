@@ -17,4 +17,14 @@ class Label_Demeter extends ProductLabel {
     public int getImage() {
         return R.drawable.demeter;
     }
+
+    @Override
+    public int getTrust() {
+        return 2;
+    }
+
+    @Override
+    public String getDesc() {
+        return "Certifie une agriculture biodynamique : respecte les saisons et les rythmes biologiques pour permettre une regénération des sols.\nDe manière générale, ce label est plus strict que le label européen.";
+    }
 }

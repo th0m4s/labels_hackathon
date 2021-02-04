@@ -17,4 +17,14 @@ class Label_AOC extends ProductLabel {
     public int getImage() {
         return R.drawable.aoc;
     }
+
+    @Override
+    public int getTrust() {
+        return 2;
+    }
+
+    @Override
+    public String getDesc() {
+        return "Label français attestant que le produit et toutes les étapes nécessaires à sa fabrication sont spécifiques à son territoire d'origine.\n\nAccréditation délivrée par l'INAO.";
+    }
 }

@@ -17,4 +17,14 @@ class Label_IGP extends ProductLabel {
     public int getImage() {
         return R.drawable.igp;
     }
+
+    @Override
+    public int getTrust() {
+        return 1;
+    }
+
+    @Override
+    public String getDesc() {
+        return "Label européen moins strict que l'AOP : seule une des étapes de fabrication doit avoir lieu dans le territoire d'origine du produit.";
+    }
 }

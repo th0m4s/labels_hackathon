@@ -17,4 +17,14 @@ class Label_PecheMSC extends ProductLabel {
     public int getImage() {
         return R.drawable.peche_msc;
     }
+
+    @Override
+    public int getTrust() {
+        return 1;
+    }
+
+    @Override
+    public String getDesc() {
+        return "Seul label dans le domaine de la pêche, il interdit la surpêche et cherche à minimiser l'impact sur l'environnement.";
+    }
 }

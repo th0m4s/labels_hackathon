@@ -17,4 +17,14 @@ class Label_AB extends ProductLabel {
     public int getImage() {
         return R.drawable.ab;
     }
+
+    @Override
+    public int getTrust() {
+        return 1;
+    }
+
+    @Override
+    public String getDesc() {
+        return "Label Français aujourd'hui calqué sur le label européen depuis 2009.\nSouvent utilisé en plus à des fins de communication en plus du label européen.";
+    }
 }

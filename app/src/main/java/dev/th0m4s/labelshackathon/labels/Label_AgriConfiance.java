@@ -17,4 +17,14 @@ class Label_AgriConfiance extends ProductLabel {
     public int getImage() {
         return R.drawable.agri_confiance;
     }
+
+    @Override
+    public int getTrust() {
+        return -1;
+    }
+
+    @Override
+    public String getDesc() {
+        return "";
+    }
 }

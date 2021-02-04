@@ -23,6 +23,7 @@ import dev.th0m4s.labelshackathon.db.ResultsDatabase;
 public class MainActivity extends AppCompatActivity {
 
     public static RequestQueue netRequestQueue;
+    public static MainActivity Instance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        Instance = this;
 
         netRequestQueue = Volley.newRequestQueue(this);
         ResultsDatabase.Prepare(this);
@@ -46,8 +48,18 @@ public class MainActivity extends AppCompatActivity {
 
         new Thread(() -> {
             ResultsDatabase.UpdateCachedCount();
-            ((RecyclerView)findViewById(R.id.recycleViewHistory)).setAdapter(new HistoryAdapter(this, getResources()));
+            ((RecyclerView)findViewById(R.id.recycleViewHistory)).setAdapter(new HistoryAdapter(getResources()));
         }).start();
+    }
+
+    public void UpdateHistory() {
+        ResultsDatabase.UpdateCachedCount();
+
+        runOnUiThread(() -> {
+            RecyclerView.Adapter adapter = ((RecyclerView)findViewById(R.id.recycleViewHistory)).getAdapter();
+            if(adapter != null)
+                adapter.notifyDataSetChanged();
+        });
     }
 
     @Override
@@ -65,9 +77,9 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        /*if (id == R.id.action_settings) {
             return true;
-        }
+        }*/
 
         return super.onOptionsItemSelected(item);
     }

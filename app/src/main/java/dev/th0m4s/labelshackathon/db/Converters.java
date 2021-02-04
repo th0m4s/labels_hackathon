@@ -28,6 +28,6 @@ public class Converters {
 
     @TypeConverter
     public static String jsonObjectToString(JSONObject obj) {
-        return obj.toString();
+        return obj == null ? null : obj.toString();
     }
 }
