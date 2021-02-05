@@ -48,7 +48,9 @@ public class MainActivity extends AppCompatActivity {
 
         new Thread(() -> {
             ResultsDatabase.UpdateCachedCount();
-            ((RecyclerView)findViewById(R.id.recycleViewHistory)).setAdapter(new HistoryAdapter(getResources()));
+            runOnUiThread(() -> {
+                ((RecyclerView)findViewById(R.id.recycleViewHistory)).setAdapter(new HistoryAdapter(getResources()));
+            });
         }).start();
     }
 
